@@ -23,7 +23,6 @@ class StudentEdit extends Component {
     return (
       <>
         <StudentEditForm/>
-
       </>
     );
   }
@@ -31,7 +30,10 @@ class StudentEdit extends Component {
 
 function StudentEditForm () {
   return (
+    <>
     <h1>Student Edit</h1>
+    <ReturnDashboardPanelButton />
+    </>
   );
 }
 

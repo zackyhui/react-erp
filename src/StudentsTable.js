@@ -27,17 +27,29 @@ export default function StudentsTable(props) {
   ];
 
   const [rows, updateRows] = React.useState([]);
-  React.useEffect(() => {
-    fetch("http://laravel-erp/api/students")
-      .then((response) => response.json())
-      .then(({ data: rows }) => {
-        updateRows(rows);
-        
-      });
-  }, []);
+  const [totalRows, updateTotalRows] = React.useState([]);
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(0);
+ 
+
+  React.useEffect(() => {
+    fetch("http://laravel-erp/api/students?page="+(page+1))
+      .then((response) => response.json())
+      .then((
+        { 
+          data: rows,
+          links: links,
+          per_page: rowsPerPage,
+          total: totalRows,
+
+        }) => {
+        updateRows(rows);
+        setRowsPerPage(rowsPerPage);
+        updateTotalRows(totalRows);
+        console.log(rows);
+      });
+  }, [page]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -47,8 +59,6 @@ export default function StudentsTable(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  console.log(rows);
 
   if (rows == 0) {
     return (
@@ -76,7 +86,7 @@ export default function StudentsTable(props) {
 
               <TableBody>
                 {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  
                   .map((row) => {
                     return (
                       <TableRow key={row.id}>
@@ -104,7 +114,7 @@ export default function StudentsTable(props) {
           <TablePagination
             rowsPerPageOptions={[5, 10, 15, 20]}
             component="div"
-            count={rows.length}
+            count={20}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
