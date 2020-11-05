@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { ReturnDashboardPanelButton } from "./DashboardPanel";
+import ReturnButton from "./ReturnButton";
 
 class Courses extends Component {
   render() {
     return (
       <div>
-        <ReturnDashboardPanelButton />
+        <ReturnButton location="/" />
         <h2>Courses</h2>
       </div>
     );
   }
 }
-
 
 export default Courses;

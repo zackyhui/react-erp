@@ -51,11 +51,14 @@ export default function DashboardPanel() {
 }
 
 
-export function ReturnDashboardPanelButton() {
+export function ReturnDashboardPanelButton(props) {
   let history = useHistory();
 
   function handleClick() {
-    history.push("/");
+    console.log(props.location);
+    history.push({
+      pathname: props.location,
+    });
   }
 
   return (
